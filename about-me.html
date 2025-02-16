@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="styles/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">  </head>  
+    </head>
+    <body>
+        <header>
+            <h1> Andrew Burnah </h1>
+            <div class="link-container">
+                <a href="about-me.html">home</a>
+                <a href="interests.html">interests</a>
+                <a href="projects.html">projects</a>
+                <a href="">CV</a>
+            </div>
+        </header>
+        <main>
+            <div class="console">
+                <p id="consoleOutput">Please enter a command</p>
+                <div class="inputline">
+                    <p>></p>
+                    <input type="text" id="command" onkeydown="handleEnter(event)" >
+                </div>
+            </div>
+        </main>
+        <footer>
+            <p style="text-align: center;"> © Andrew Burnah 2025</p>
+        </footer>
+        <!-- Model: TinyLlama-1.1B-Chat-v0.4-q4f16_1-MLC -->
+        <script type="module" src="scripts/script.js"></script>
+              
+    </body>
+</html>
