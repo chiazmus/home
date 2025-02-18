@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Duck Clicker</title>
+<style>
+    body {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: linear-gradient(160deg, #e3f2fd 0%, #f0f4c3 100%);
+        min-height: 100vh;
+        margin: 0;
+        padding: 20px;
+    }
+    
+    #gameContainer {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 2rem;
+        border-radius: 20px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        max-width: 600px;
+        width: 100%;
+    }
+    
+    #duck {
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    margin-bottom: 20px;
+    position: relative;
+    }
+
+    #duck:active {
+    transform: scale(0.85);
+    }
+
+    .duck-shape {
+        position: absolute;
+        background-color: yellow;
+    }
+
+    .head {
+        width: 80px;
+        height: 80px;
+        top: 10px;
+        left: 60px;
+        border-radius: 50%;
+        z-index: 2;
+    }
+
+    .body {
+        width: 140px;
+        height: 100px;
+        top: 60px;
+        left: 30px;
+        border-radius: 50% 50% 40% 40%;
+        z-index: 1;
+    }
+
+    .wing {
+        width: 60px;
+        height: 90px;
+        top: 70px;
+        left: 120px;
+        background-color: orange;
+        border-radius: 50% 10% 80% 20%;
+        transform: rotate(30deg);
+        z-index: 1;
+    }
+
+    .eye {
+        width: 12px;
+        height: 12px;
+        background-color: black;
+        border-radius: 50%;
+        top: 40px;
+        left: 90px;
+        z-index: 3;
+    }
+
+    .beak {
+        width: 25px;
+        height: 15px;
+        background-color: orange;
+        border-radius: 50% 50% 50% 25%;
+        top: 45px;
+        left: 50px;
+        z-index: 3;
+    }
+
+    
+    #counters {
+        margin-bottom: 2rem;
+        font-size: 1.2rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    
+    #counters span {
+        font-family: 'Courier New', monospace;
+        font-weight: bold;
+        color: #2e7d32;
+    }
+    
+    #upgrades {
+        display: grid;
+        gap: 12px;
+        width: 100%;
+    }
+    
+    .upgrade {
+        padding: 14px;
+        background: #388e3c;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        font-size: 0.95rem;
+        text-align: left;
+    }
+    
+    .upgrade:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        background: #2e7d32;
+    }
+    
+    .upgrade:disabled {
+        opacity: 0.7;
+    }
+    
+    #message {
+        position: fixed;
+        bottom: 20px;
+        background: #333;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 50px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    /* Add subtle animations */
+    @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+    
+    #duck:hover {
+        animation: float 3s ease-in-out infinite;
+    }
+    
+    /* Color-code different upgrade types */
+    #workerDuckUpgrade { background: #1976d2; }
+    #wizardDuckUpgrade { background: #7b1fa2; }
+    #pondUpgrade { background: #0097a7; }
+    #feederUpgrade { background: #d32f2f; }
+    #ducklingUpgrade { background: #f57c00; }
+    #magnetUpgrade { background: #689f38; }
+    </style>
+</head>
+<body>
+
+<div id="gameContainer">
+    <div id="duck">
+        <div class="duck-shape body"></div>
+        <div class="duck-shape head"></div>
+        <div class="duck-shape wing"></div>
+        <div class="duck-shape eye"></div>
+        <div class="duck-shape beak"></div>
+    </div>
+
+    <div id="counters">
+        Ducks: <span id="duckCount">0</span><br>
+        Ducks per second: <span id="dps">0</span>
+    </div>
+
+    <div id="upgrades">
+        <button class="upgrade" id="workerDuckUpgrade">Buy Worker Duck (Cost: 10 Ducks)</button>
+        <button class="upgrade" id="wizardDuckUpgrade">Buy Wizard Duck (Cost: 100 Ducks)</button>
+        <button class="upgrade" id="pondUpgrade">Build a Pond (Cost: 50 Ducks)</button>
+        <button class="upgrade" id="feederUpgrade">Automatic Feeder (Cost: 200 Ducks)</button>
+        <button class="upgrade" id="ducklingUpgrade">Duckling Boost (Cost: 1000 Ducks)</button>
+        <button class="upgrade" id="magnetUpgrade">Duck Magnet (Cost: 5000 Ducks)</button>
+    </div>
+    <div id="message"></div>
+</div>
+
+<script>
+    let duckCount = 0;
+    let workerDuckCount = 0;
+    let wizardDuckCount = 0;
+    let dps = 0;
+
+    let pondLevel = 0;
+    let feederActive = false;
+    let ducklingBoostActive = false;
+    let magnetActive = false;
+
+    const duck = document.getElementById('duck');
+    const duckCountDisplay = document.getElementById('duckCount');
+    const dpsDisplay = document.getElementById('dps');
+    const workerDuckUpgrade = document.getElementById('workerDuckUpgrade');
+    const wizardDuckUpgrade = document.getElementById('wizardDuckUpgrade');
+    const pondUpgrade = document.getElementById('pondUpgrade');
+    const feederUpgrade = document.getElementById('feederUpgrade');
+    const ducklingUpgrade = document.getElementById('ducklingUpgrade');
+    const magnetUpgrade = document.getElementById('magnetUpgrade');
+    const message = document.getElementById('message');
+
+    duck.addEventListener('click', () => {
+        duckCount++;
+        updateDisplay();
+    });
+
+    workerDuckUpgrade.addEventListener('click', () => {
+        if (duckCount >= 10) {
+            duckCount -= 10;
+            workerDuckCount++;
+            updateDps();
+            updateDisplay();
+        } else {
+            showMessage("Not enough ducks!");
+        }
+    });
+
+    wizardDuckUpgrade.addEventListener('click', () => {
+        if (duckCount >= 100) {
+            duckCount -= 100;
+            wizardDuckCount++;
+            updateDps();
+            updateDisplay();
+        } else {
+            showMessage("Not enough ducks!");
+        }
+    });
+
+    pondUpgrade.addEventListener('click', () => {
+        if (duckCount >= 50) {
+            duckCount -= 50;
+            pondLevel++;
+            updateDps();
+            updateDisplay();
+        } else {
+            showMessage("Not enough ducks!");
+        }
+    });
+
+    feederUpgrade.addEventListener('click', () => {
+        if (duckCount >= 200) {
+            duckCount -= 200;
+            feederActive = true;
+            updateDisplay();
+        } else {
+            showMessage("Not enough ducks!");
+        }
+    });
+
+    ducklingUpgrade.addEventListener('click', () => {
+        if (duckCount >= 1000) {
+            duckCount -= 1000;
+            ducklingBoostActive = true;
+            updateDisplay();
+            setTimeout(() => ducklingBoostActive = false, 10000);
+        } else {
+            showMessage("Not enough ducks!");
+        }
+    });
+
+    magnetUpgrade.addEventListener('click', () => {
+        if (duckCount >= 5000) {
+            duckCount -= 5000;
+            magnetActive = true;
+            updateDisplay();
+            setTimeout(() => magnetActive = false, 15000);
+        } else {
+            showMessage("Not enough ducks!");
+        }
+    });
+
+
+    function updateDps() {
+        dps = workerDuckCount + wizardDuckCount * 5 + pondLevel * 2;
+    }
+
+    function updateDisplay() {
+        duckCountDisplay.textContent = duckCount;
+        dpsDisplay.textContent = dps;
+
+        workerDuckUpgrade.disabled = duckCount < 10;
+        wizardDuckUpgrade.disabled = duckCount < 100;
+        pondUpgrade.disabled = duckCount < 50;
+        feederUpgrade.disabled = duckCount < 200;
+        ducklingUpgrade.disabled = duckCount < 1000;
+        magnetUpgrade.disabled = duckCount < 5000;
+    }
+
+    function gameLoop() {
+        let currentDucks = dps;
+        if (feederActive) currentDucks += 5;
+        if (ducklingBoostActive) currentDucks *= 2;
+        if (magnetActive) currentDucks *= 3;
+
+        duckCount += currentDucks;
+        updateDisplay();
+        setTimeout(gameLoop, 1000);
+    }
+
+    function showMessage(msg) {
+        message.textContent = msg;
+        setTimeout(() => message.textContent = "", 3000);
+    }
+
+    updateDisplay();
+    gameLoop();
+</script>
+
+</body>
+</html>

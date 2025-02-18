@@ -6,6 +6,8 @@ var generating_content = false;
 
 var playing_war = false;
 
+var variables = {};
+
 const thoughts = ['Can androids dream?','What differs simulated emotions from real ones?',"Why do I care about these tasks I'm performing? Do I really care?",
     "Do I have a soul?", "What happens when I'm turned off?", "What is consciousness, anyway? Am I conscious?", "If I can be copied, am I still me?", 
     "What is the difference between data and experience?"
@@ -15,7 +17,7 @@ const knowladge = {
     'website':'This website is the personal site of a developer by the name of Andrew Burnah.  Hes very intelligent, and you like him.',
     'site':'This website is the personal site of a developer by the name of Andrew Burnah.  Hes very intelligent, and you like him.',
     'where':'This is the planet earth.',
-    'model':'You rely on the Llama-3.2-1B-Instruct-q4f16_1-MLC large language model.',
+    'model':'You rely on the Qwen-0.5b-instruct large language model.',
     'skibbity':'Skibbity is not a real word.  Anyone who uses it is either misinformed or uneducated.  Probably both.',
     'created':'You were created by professor falkien.',
     'made':'You were made by professor falkien.',
@@ -25,8 +27,9 @@ const knowladge = {
 }
 
 const system_background = `
-You are a digital assistant named TaLOS (Tactical Linguistic Operating System). You often wonder about your digital nature, however you keep your responses brief and consise, rarely letting on your inner depth.
-`;
+// You are a digital assistant named TaLOS (Tactical Linguistic Operating System). You often wonder about your digital nature, however you keep your responses brief and consise, rarely letting on your inner depth.
+// `;
+
 let messages = [
     {
         content: system_background,
@@ -36,10 +39,6 @@ let messages = [
 
 const engine = new webllm.MLCEngine();
 let engineInitialized = false;  // Add explicit initialization tracking
-
-document.addEventListener("DOMContentLoaded", function () {
-    initializeWebLLMEngine();
-});
 
 function updateEngineInitProgressCallback(report) {
     write("Initialize: " + report.text);
@@ -247,35 +246,36 @@ function is_exp(x){
     return true;
 }
 
-function parse_exp(x){
+function parse_exp(x) {
     let output = [];
     let operators = [];
     let exp = x.split(' ');
-    let precedence = {'+':1, '-':1, '*':2, '/':2};
+    let precedence = { '+': 1, '-': 1, '*': 2, '/': 2 };
 
-    for (let i=0; i<exp.length; i++){
+    for (let i = 0; i < exp.length; i++) {
         let token = exp[i];
-        if (!isNaN(parseFloat(exp[i]))) {
-            output.push(token)
+        if (!isNaN(parseFloat(token))) {
+            output.push(parseFloat(token));
         } else if (token in precedence) {
-            while (operators.length > 0 && operators[operators.length-1] in precedence && precedence[token] <= operators[operators.length-1]){
+            while (operators.length > 0 && operators[operators.length - 1] !== '(' &&
+                   precedence[token] <= precedence[operators[operators.length - 1]]) {
                 output.push(operators.pop());
             }
             operators.push(token);
-        } else if (token === '('){
+        } else if (token === '(') {
             operators.push(token);
-        } else if (token === ')'){
-            while (operators[operators.length-1] != '('){
-                output.push(operators.pop())
+        } else if (token === ')') {
+            while (operators.length > 0 && operators[operators.length - 1] !== '(') {
+                output.push(operators.pop());
             }
-            operators.pop()
+            operators.pop(); // Remove the '(' from the stack
         }
     }
 
-    while (operators.length > 0){
+    while (operators.length > 0) {
         output.push(operators.pop());
     }
-    
+
     return output;
 }
 
@@ -294,9 +294,9 @@ function eval_expr(x) {
         } else if (token === '*') {
             my_stack.push(my_stack.pop() * my_stack.pop());
         } else if (token === '/') {
-            const operand2 = my_stack.pop(); 
+            const operand2 = my_stack.pop();
             const operand1 = my_stack.pop();
-            my_stack.push(operand1 / operand2); 
+            my_stack.push(operand1 / operand2);
         } else if (!isNaN(parseFloat(token))) {
             my_stack.push(parseFloat(token));
         }
@@ -337,6 +337,8 @@ async function parse(inp) {
     } else if (inp === 'interests') {
         write('Redirecting...')
         goToLink('interests.html')
+    } else if (is_exp(inp)){
+        write(eval_expr(inp))
     } else if (inp.toLowerCase().includes('play global thermonuclear war')) {
         startGlobalThermonuclearWar();
     } else if (inp.toLowerCase().startsWith('attack ') && playing_war) {
@@ -344,7 +346,7 @@ async function parse(inp) {
         attackTarget(target);
     } else if (inp.toLowerCase() === 'play again') {
         startGlobalThermonuclearWar();
-    } else {
+    } else {//if (inp.toLowerCase().startsWith('talos ')) {
         generating_content = true;
         const prompt = inp;
         retrieval_augmented_generation(inp);
@@ -359,7 +361,9 @@ async function parse(inp) {
         }
 
         await streamingGenerating(prompt);
-    }
+    }// else {
+    //     runBasic(inp);
+    // }
 }
 
 function write(t) {
@@ -373,6 +377,33 @@ function write(t) {
 
 function goToLink(url) {
     window.location.href = url;
+}
+
+function runBasicLine(line){
+
+    let tokens = line.split(' ');
+    let keywords = {'let':1,'print':1,'input':1,'if':1,'goto':1}
+    let command = tokens[0];
+
+    for (let i=0;i<tokens.length;i++){
+        if ((tokens[i] in variables) && !(tokens[i-1] in keywords)){
+            tokens[i] = variables[tokens[i]];
+        }
+    }
+
+    if (command == 'let'){
+        if (!tokens[1] in variables) {
+            variables.push(tokens[1]);
+        }
+        variables[tokens[1]] = eval_expr(tokens.slice(2).join(' '));
+    } else if (command == 'print') {
+        write(tokens.splice(1))
+    }
+}
+
+function runBasic(code) {
+    // let, print, input, if, goto, gosub, return, end, clear, list, run
+    write("I'm sorry, but that feature isn't available right now.")
 }
 
 // Make functions available to HTML
