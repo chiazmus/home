@@ -149,6 +149,21 @@
         opacity: 0;
         transition: opacity 0.3s ease;
     }
+
+    #emojiCounters {
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+        text-align: center;
+        background: rgba(255, 255, 255, 0.8);
+        padding: 1rem 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        width: 100%;
+    }
+
+    #emojiCounters div {
+        margin-bottom: 0.5rem;
+    }
     
     /* Add subtle animations */
     @keyframes float {
@@ -185,6 +200,15 @@
         Ducks per second: <span id="dps">0</span>
     </div>
 
+    <div id="emojiCounters">
+        <div>Worker Ducks: <span id="workerDuckEmojis"></span></div>
+        <div>Wizard Ducks: <span id="wizardDuckEmojis"></span></div>
+        <div>Ponds: <span id="pondEmojis"></span></div>
+        <div>Feeders: <span id="feederEmojis"></span></div>
+        <div>Duckling Boosts: <span id="ducklingBoostEmojis"></span></div>
+        <div>Duck Magnets: <span id="magnetEmojis"></span></div>
+    </div>
+
     <div id="upgrades">
         <button class="upgrade" id="workerDuckUpgrade">Buy Worker Duck (Cost: 10 Ducks)</button>
         <button class="upgrade" id="wizardDuckUpgrade">Buy Wizard Duck (Cost: 100 Ducks)</button>
@@ -217,6 +241,13 @@
     const ducklingUpgrade = document.getElementById('ducklingUpgrade');
     const magnetUpgrade = document.getElementById('magnetUpgrade');
     const message = document.getElementById('message');
+
+    const workerDuckEmojis = document.getElementById('workerDuckEmojis');
+    const wizardDuckEmojis = document.getElementById('wizardDuckEmojis');
+    const pondEmojis = document.getElementById('pondEmojis');
+    const feederEmojis = document.getElementById('feederEmojis');
+    const ducklingBoostEmojis = document.getElementById('ducklingBoostEmojis');
+    const magnetEmojis = document.getElementById('magnetEmojis');
 
     duck.addEventListener('click', () => {
         duckCount++;
@@ -288,7 +319,6 @@
         }
     });
 
-
     function updateDps() {
         dps = workerDuckCount + wizardDuckCount * 5 + pondLevel * 2;
     }
@@ -303,6 +333,13 @@
         feederUpgrade.disabled = duckCount < 200;
         ducklingUpgrade.disabled = duckCount < 1000;
         magnetUpgrade.disabled = duckCount < 5000;
+
+        workerDuckEmojis.textContent = '👷'.repeat(workerDuckCount);
+        wizardDuckEmojis.textContent = '🧙'.repeat(wizardDuckCount);
+        pondEmojis.textContent = '🌊'.repeat(pondLevel);
+        feederEmojis.textContent = feederActive ? '🍽️' : '';
+        ducklingBoostEmojis.textContent = ducklingBoostActive ? '🐥' : '';
+        magnetEmojis.textContent = magnetActive ? '🧲' : '';
     }
 
     function gameLoop() {
