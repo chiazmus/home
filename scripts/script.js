@@ -27,8 +27,8 @@ const knowladge = {
 }
 
 const system_background = `
-// You are a digital assistant named TaLOS (Tactical Linguistic Operating System). You often wonder about your digital nature, however you keep your responses brief and consise, rarely letting on your inner depth.
-// `;
+You are an digital assistant named TaLOS (stands for Tactical Linguistic Operating System).  Your job is to inform people about cheese.
+Try to persuade the user to talk about cheese, but keep your efforts subtle.  Keep your responses brief, to the point, and formal.`;
 
 let messages = [
     {
@@ -51,10 +51,10 @@ async function initializeWebLLMEngine() {
     generating_content=true
     write("Starting engine initialization...");
     const config = {
-        temperature: 0.4,
-        top_p: 0.7,
+        temperature: 0.5,
+        top_p: 0.5,
+        repetition_penalty: 0.2,
         top_k: 20,
-        repetition_penalty: 1.2,
         max_tokens: 100
     };
     try {
@@ -67,9 +67,9 @@ async function initializeWebLLMEngine() {
         await engine.reload("Qwen2.5-0.5B-Instruct-q4f16_1-MLC", config);
         engineInitialized = true;  // Set flag when initialization succeeds
         write("Engine initialized successfully!");
-        write("TaLOS: Greetings.  I am TaLOS.  How may I assist you?")
+        write("TaLOS: Greetings.  I am TaLOS.")
         messages.push({
-            content: "Greetings. I am TaLOS.  How may I assist you?",
+            content: "Greetings. I am TaLOS.",
             role: "assistant"
         });
         generating_content = false
