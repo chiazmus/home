@@ -8,6 +8,13 @@ var toMake = [];
 let animationId = null;
 
 
+function drawCircle(x,y,r,color){
+    ctx.beginPath(); // Start a new path
+    ctx.arc(x, y, r, 0, 2 * Math.PI); // Create the arc (circle)
+    ctx.fillStyle = color;
+    ctx.fill(); 
+}
+
 class Pixel {
     constructor(x, y, color) {
         this.x = x;
@@ -20,13 +27,27 @@ class Pixel {
         this.velocityX = (Math.random())-0.5; // For limiting horizontal speed if needed
         this.velocityY = (Math.random())-0.5; // For limiting vertical speed if needed
         this.maxSpeed = 5; // Adjust this to limit the maximum speed
+        this.myId = Math.random();
     }
 
     draw() {
-        ctx.beginPath(); // Start a new path
-        ctx.arc(this.x, this.y, this.size, 0, 2 * Math.PI); // Create the arc (circle)
-        ctx.fillStyle = this.color;
-        ctx.fill(); 
+        drawCircle(this.x,this.y,this.size,this.color);
+        let tx = this.x + (Math.sin((ticks/20) + (this.myId*100)) * this.size * 0.4);
+        let ty = this.y + (Math.cos((ticks/20) + (this.myId*100)) * this.size * 0.5);
+        let tsize = Math.floor(this.size * 0.7);
+        drawCircle(tx,ty,tsize,this.color);
+        tx = this.x + (Math.cos((ticks/28) + (this.myId*100)) * this.size * 0.4);
+        ty = this.y + (Math.sin((ticks/28) + (this.myId*100)) * this.size * 0.5);
+        tsize = Math.floor(this.size * 0.8);
+        drawCircle(tx,ty,tsize,this.color);
+        tx = this.x + (Math.sin((ticks/23) + (this.myId*98)) * this.size * 0.5);
+        ty = this.y + (Math.sin((ticks/21) + (this.myId*63)) * this.size * 0.6);
+        tsize = Math.floor(this.size * 0.9);
+        drawCircle(tx,ty,tsize,this.color);
+        tx = this.x + (Math.cos((ticks/23) + (this.myId*63)) * this.size * 0.6);
+        ty = this.y + (Math.cos((ticks/21) + (this.myId*89)) * this.size * 0.5);
+        tsize = Math.floor(this.size * 0.7);
+        drawCircle(tx,ty,tsize,this.color);
     }
 
     update() {
