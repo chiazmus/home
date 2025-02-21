@@ -1,0 +1,76 @@
+:root {
+    --background-color: #121212;
+    --background-secondary: #1e1e1e;
+    --primary: #666;
+    --accent-1: #bb86fc;
+    --accent-2: #03dac6;
+}
+
+* {
+    background-color: var(--background-color);
+    color: var(--primary);
+    border-radius: 10px;
+    font-family: monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+header {
+    border-bottom: 1px solid;
+    border-radius: 0;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    width: clamp(50%,960px,90%);
+    text-align: center;
+}
+
+main {
+    font-family: Arial, sans-serif;
+    padding: 0;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: clamp(50%,960px,90%);
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--background-secondary);
+}
+
+#universeBox{
+    background-color: black;
+    width: 90%;
+    height: 80%;
+    padding: 10px;
+    image-rendering: pixelated;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--accent-1);
+    color: var(--background-color);
+    border: none;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: var(--accent-2);
+}
+
+footer {
+    width: clamp(50%,960px,90%);
+    border-radius: 0;
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    font-size: 0.9em;
+    color: var(--primary);
+    border-top: 1px solid var(--primary);
+}

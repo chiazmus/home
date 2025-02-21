@@ -346,24 +346,10 @@ async function parse(inp) {
         attackTarget(target);
     } else if (inp.toLowerCase() === 'play again') {
         startGlobalThermonuclearWar();
-    } else {//if (inp.toLowerCase().startsWith('talos ')) {
-        generating_content = true;
-        const prompt = inp;
-        retrieval_augmented_generation(inp);
-        if (!prompt) {
-            write("Please provide a prompt. Example: What is the weather like?");
-            return;
-        }
 
-        if (!engineInitialized) {  // Use our explicit flag
-            write("Engine not initialized. Please run 'init' command first.");
-            return;
-        }
-
-        await streamingGenerating(prompt);
-    }// else {
-    //     runBasic(inp);
-    // }
+    } else {
+        runBasicLine(inp);
+    }
 }
 
 function write(t) {
@@ -379,25 +365,31 @@ function goToLink(url) {
     window.location.href = url;
 }
 
-function runBasicLine(line){
-
+function runBasicLine(line) {
     let tokens = line.split(' ');
-    let keywords = {'let':1,'print':1,'input':1,'if':1,'goto':1}
+    let keywords = {'let': 1, 'print': 1, 'input': 1, 'if': 1, 'goto': 1, 'end': 1};
     let command = tokens[0];
 
-    for (let i=0;i<tokens.length;i++){
-        if ((tokens[i] in variables) && !(tokens[i-1] in keywords)){
+    for (let i = 1; i < tokens.length; i++) {
+        // Use hasOwnProperty for a reliable check
+        if (variables.hasOwnProperty(tokens[i]) && (tokens[i-1] != 'let')) {
             tokens[i] = variables[tokens[i]];
         }
     }
 
-    if (command == 'let'){
-        if (!tokens[1] in variables) {
-            variables.push(tokens[1]);
+    if (command === 'let') {  // Use === for strict equality
+        // Use hasOwnProperty here as well
+        if (!variables.hasOwnProperty(tokens[1])) {
+            variables[tokens[1]] = 0
+
         }
-        variables[tokens[1]] = eval_expr(tokens.slice(2).join(' '));
-    } else if (command == 'print') {
-        write(tokens.splice(1))
+        variables[tokens[1]] = eval_expr(tokens.slice(3).join(' '));
+    } else if (command === 'print') { // Use === for strict equality
+        if (tokens.length > 2) {
+            write(String(eval_expr(tokens.slice(1).join(' '))));
+        } else {
+            write(String(tokens[1]))
+        }
     }
 }
 
