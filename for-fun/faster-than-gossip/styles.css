@@ -20,15 +20,15 @@ h1 {
 }
 
 h2 {
-    font-size: x-large;
+    font-size: large;
 }
 
 h3 {
-    font-size: larger;
+    font-size: medium;
 }
 
 p {
-    font-size: medium;
+    font-size: small;
 }
 
 body {
@@ -50,10 +50,11 @@ header {
 
 main {
     display: flex;
+    width: 100vw;
     flex-direction: row;
     justify-content: center;
-    width: clamp(50%,2100px,90%);
     background-color: var(--background-color);
+    font-size: small;
 }
 
 .menu {
