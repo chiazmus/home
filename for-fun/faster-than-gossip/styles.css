@@ -15,6 +15,22 @@
     font-family: 'Orbitron', sans-serif;
 }
 
+h1 {
+    font-size: xx-large;
+}
+
+h2 {
+    font-size: x-large;
+}
+
+h3 {
+    font-size: larger;
+}
+
+p {
+    font-size: medium;
+}
+
 body {
     display: flex;
     flex-direction: column;

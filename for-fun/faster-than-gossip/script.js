@@ -501,6 +501,7 @@ function endgame() {
 function restartGame(){
 
     canvas.style.backgroundImage = "url('images/pixel-space.png')";
+    ctx.font = '16px "Orbitron", monospace';
     fuel = 5;
     credits = 10;
     storyPoints = 0;
@@ -585,6 +586,7 @@ function tutorial() {
     ctx.fillRect(buttonX, buttonY, 150, 40);
     ctx.fillStyle = '#0a0a1a';
     ctx.fillText("Start Game", centerX, buttonY + 25);
+    ctx.font = '16px "Orbitron", monospace';
 
     // Add an event listener to the canvas to detect clicks on the "Start Game" button
     canvas.addEventListener('click', function startGame(event) {
