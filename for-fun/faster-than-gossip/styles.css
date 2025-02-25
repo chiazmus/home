@@ -71,6 +71,10 @@ main {
     border: 1px solid rgba(77, 240, 255, 0.3);
     box-shadow: var(--subtle-glow);
     text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: rgba(77, 240, 255, 0.3) var(--background-secondary);
+    scrollbar-width: thin;
 }
 
 .menu h2 {
@@ -109,6 +113,10 @@ main {
     border: 1px solid rgba(77, 240, 255, 0.3);
     box-shadow: var(--subtle-glow);  
     text-align: center;  
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-color: rgba(77, 240, 255, 0.3) var(--background-secondary);
+    scrollbar-width: thin;
 }
 
 .newsarticle {
