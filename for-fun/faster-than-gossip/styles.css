@@ -12,7 +12,7 @@
     background-color: var(--background-color);
     color: var(--primary);
     border-radius: 10px;
-    font-family: 'Orbitron', sans-serif;
+    font-family: monospace;
 }
 
 h1 {
@@ -36,7 +36,6 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: radial-gradient(circle at center, #0a0a2a 0%, #000013 100%);
 }
 
 header {
@@ -54,6 +53,7 @@ main {
     flex-direction: row;
     justify-content: center;
     width: clamp(50%,2100px,90%);
+    background-color: var(--background-color);
 }
 
 .menu {
