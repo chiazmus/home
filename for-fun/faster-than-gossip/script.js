@@ -546,7 +546,6 @@ function restartGame(){
 
     canvas.addEventListener('mousemove', mouseMoveHandler);
     canvas.addEventListener('click', clickHandler);
-    document.removeEventListener('keydown', restartHandler);
 
 }
 
