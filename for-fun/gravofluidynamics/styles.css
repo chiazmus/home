@@ -42,7 +42,7 @@ main {
     background-color: var(--background-secondary);
 }
 
-#universeBox{
+#simulateBox{
     background-color: black;
     width: 90%;
     height: 80%;

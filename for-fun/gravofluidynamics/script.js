@@ -1,4 +1,4 @@
-const canvas = document.getElementById('universeBox');
+const canvas = document.getElementById('simulateBox');
 const ctx = canvas.getContext('2d');
 const G = 0.01;
 let ticks = 0;
@@ -115,7 +115,7 @@ class Pixel {
     }
 }
 
-function makeStars(stars){
+function makeDroplets(stars){
     for (let i=0; i<stars; i++){
         let tx = Math.random() * canvas.width;
         let ty = Math.random() * canvas.height;
@@ -128,7 +128,7 @@ function makeStars(stars){
     }
 }
 
-function drawStars(){
+function drawDroplets(){
     for (let i=0; i<myPixels.length; i++){
         myPixels[i].draw();
     }
@@ -158,26 +158,26 @@ function clearCanvas(){
     ctx.clearRect(0,0,canvas.width,canvas.height);
 }
 
-function genUniverse(){
+function genSimulation(){
     // Example: Draw a red pixel at (10, 10)
     myPixels = [];
     clearCanvas();
-    makeStars(80);
-    drawStars();
+    makeDroplets(80);
+    drawDroplets();
     // Cancel the previous animation loop before starting a new one
     if (animationId) {
         cancelAnimationFrame(animationId);
     }
 
-    animationId = requestAnimationFrame(updateUniverse);
+    animationId = requestAnimationFrame(updateSimulation);
 }
 
-function updateUniverse(){
+function updateSimulation(){
     ticks++;
     clearCanvas();
     myPixels.forEach(i => i.update());
     toDelete.forEach(i => i.deleteSelf());
     toDelete = [];
-    drawStars();
-    animationId = requestAnimationFrame(updateUniverse);
+    drawDroplets();
+    animationId = requestAnimationFrame(updateSimulation);
 }

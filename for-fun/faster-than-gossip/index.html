@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Faster Than Gossip</title>
+        <link rel="stylesheet" href="styles.css">
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <header>
+            <h1>Faster Than Gossip</h1>
+        </header>
+        <main>
+            <div class="news">
+                <h2>Galactic News</h2>
+                <div class="newsarticle">
+                    <h3 id="head1">The Classic Battle of Human Vs Machine</h3>
+                    <p id="article1">Two Journalists, one human, one machine, duke it out in a battle of the ages.  Who will win?  Stay tuned to find out!</p>
+                </div>
+                <div class="newsarticle">
+                    <h3 id="head2">Space Wizards Discover Bannanas</h3>
+                    <p id="article2">No explanation needed.  Stay tuned to find out more!</p>
+                </div>
+            </div>
+            <div class="gameBox">
+                <canvas id="universeBox"></canvas>
+                <div class="options">
+                    <button onclick="restartGame()">Restart Game</button>
+                    <button id="playSong" onclick="playSong()">Play Music</button>
+                </div>
+            </div>
+            <div class="menu">
+                <h2 id="systemName">System Name</h2>
+                <h3 id="storeAvailable">Store Available</h3>
+                <h3 id="storyValue">Story: Boring</h3>
+                <h2>Actions</h2>
+                <button id="buyFuel" onclick="fuelBuy()">Buy Fuel: 5</button>
+                <button id="research" onclick="research()">Research Story</button>
+                <button onclick="endgame()">Publish Stories</button>
+                <h3 id="fuel">Fuel: 5</h3>
+                <h3 id="credits">Credits: 10</h3>
+                <h3 id="stories">Stories: 0</h3>
+                <h2>Sensors</h2>
+                <h3 id="sensorName">Name: None</h3>
+                <h3 id="sensorStory">Story: None</h3>
+                <h3 id="sensorUtility">Utilities: None</h3>
+            </div>
+        </main>
+        <footer>
+           <h2>© 2025 Andrew Burnah </h2>
+        </footer>
+        <script src="script.js"></script>
+    </body>
+</html>
