@@ -12,7 +12,7 @@
     background-color: var(--background-color);
     color: var(--primary);
     border-radius: 10px;
-    font-family: monospace;
+    font-family: 'Orbitron', sans-serif;
 }
 
 h1 {
