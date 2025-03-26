@@ -3,7 +3,7 @@ const output = document.getElementById('output');
 const editor = document.getElementById("editor");
 
 button.addEventListener('click', runCode);
-const keywords = ["if", "then", "else", 'print', 'goto', 'input', 'let', 'end'];
+const keywords = ["if", "else", 'print', 'goto', 'input', 'let', 'end'];
 
 let skipHighlighting = false;
 
@@ -104,5 +104,4 @@ editor.addEventListener("input", () => {
 });
 
 function runCode(){
-    return true;
 }

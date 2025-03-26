@@ -1,0 +1,114 @@
+:root {
+    --background-color: #121212;
+    --background-secondary: #1e1e1e;
+    --primary: #666;
+    --accent-1: #a479da;
+    --accent-2: #3cb6aa;
+}
+
+* {
+    background-color: var(--background-color);
+    color: var(--primary);
+    border-radius: 10px;
+    font-family: monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: larger;
+}
+
+header {
+    border-bottom: 1px solid;
+    border-radius: 0;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    width: clamp(50%,960px,90%);
+    text-align: center;
+}
+
+main {
+    font-family: monospace, sans-serif;
+    padding: 0;
+    margin: 15px;
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    width: clamp(50%,960px,90%);
+    align-items: center;
+    justify-content: space-around;
+    background-color: var(--background-secondary);
+}
+
+#textbox {
+    width: 90%;
+    height: 60%;
+    padding: 10px;
+    background-color: var(--background-color);
+    color: var(--accent-2);
+    font-size: larger;
+    font-family: monospace;
+    white-space: pre-wrap;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    scrollbar-color: var(--accent-2) var(--background-color);
+    scrollbar-width: thin;
+}
+
+#userInput {
+    width: 60%;
+    height: 3rem;
+    font-size: larger;
+    background-color: var(--background-color);
+    color: var(--accent-2);
+    border: 0;
+    text-align: center;
+}
+
+#bottomRow {
+    display: flex;
+    width: 90%;
+    justify-content: space-between;
+    align-items: center;
+    height: 30%;
+    background-color: var(--background-secondary);
+}
+
+#displayMap {
+    width: 30%;
+    height: 90%;
+    background-color: var(--background-color);
+    color: var(--accent-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: var(--accent-1);
+    color: var(--background-color);
+    border: none;
+    margin: 10px;
+}
+
+button:hover {
+    background-color: var(--accent-2);
+}
+
+footer {
+    width: clamp(50%,960px,90%);
+    border-radius: 0;
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    font-size: 0.9em;
+    color: var(--primary);
+    border-top: 1px solid var(--primary);
+}

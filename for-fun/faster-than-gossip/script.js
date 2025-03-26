@@ -5,6 +5,15 @@
 //Code and Game Design by Andrew Burnah
 //Devolopment tools: Visual Studio Code, Chat GPT, Google Gemini, Deep Seek, Google Search
 
+//Possible elements to add to the game:
+//Space Pirates (take fuel or credits)
+//Environmental Hazards like Black Holes or Nebuli (which take extra fuel)
+//Hostile planets which might take fuel or credits (but maybe have better stories)
+//Upgrades, such as:
+//Better Sensors -lets you see distant stars
+//Weapons Systems -lets you attack pirates (or steal fuel from rival ships)
+//A second ship?
+
 const canvas = document.getElementById('universeBox');
 const ctx = canvas.getContext('2d');
 
@@ -55,8 +64,8 @@ let storyPoints = 0;
 
 let currentLocation = 0;
 
-starPrefix = ['Alpha', 'Zeta', 'Gamma', 'Epsilon', 'Orion', 'Cerce', 'Delta', 'Beta']
-starSuffix = ['Prime', 'Outpost', 'Major', 'Minor', 'Nebula', 'Station']
+starPrefix = ['Alpha', 'Zeta', 'Gamma', 'Epsilon', 'Orion', 'Cerce', 'Delta', 'Beta', 'Geidi', 'Telseron', 'Mobius', 'Arcadia', 'Sirius', 'Antares', 'Vega', 'Taurus'];
+starSuffix = ['Prime', 'Outpost', 'Major', 'Minor', 'Nebula', 'Station', 'IV', 'III', 'II', 'Ring', 'Matrix', 'Cluster', 'Vortex'];
 
 let ticks = 0;
 let myStars = [];
@@ -77,6 +86,14 @@ let shipx = 0;
 let shipy = 0;
 let mouseX = 0;
 let mouseY = 0;
+
+let piratex = 0;
+let piratey = 0;
+let piratestar = null;
+let pirateWeaponScore = 1; //Combat works by a simple score comparison (he who has the higher score takes resources from the other!)
+
+let myWeaponScore = 0;
+let enemyWeaponScore = 0;
 
 ctx.font = '8px monospace'
 
@@ -214,7 +231,6 @@ function generateSciFiHeadline() {
     
     return `${randomIntro} ${headline.toLowerCase()} Sources report that ${randomEvent} in ${randomLocation} is ${randomConsequence}. Stay tuned for updates as this story develops.`;
   }
-
 
 function drawLine(x1, y1, x2, y2) {
     ctx.beginPath();
