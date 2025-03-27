@@ -76,7 +76,7 @@ main {
     display: none;
 }
 
-.song audio {
+.song audio, .song a {
     display: none;
 }
 
@@ -87,6 +87,18 @@ main {
     padding: 0;
     color: var(--accent-3);
     background-color: var(--background-secondary);
+}
+
+.song:hover a {
+    display: block;
+    background-color: var(--background-color);
+    color: var(--primary);
+    padding: 0.5rem;
+    text-decoration: none;
+}
+
+.song:hover a:hover {
+    background-color: #ddd;
 }
 
 .song audio::-webkit-media-controls-panel {

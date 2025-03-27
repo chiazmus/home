@@ -1,38 +1,33 @@
 const songs = [
     {
-        title: "Singularity",
-        artists: "Andrew Burnah and William Burnah",
-        filePath: "music/Singularity.mp3"
+        title:'Waltz in a blizzard',
+        artists:'Andrew Burnah',
+        filePath:'compositions/Waltz in a blizzard.pdf',
     },
     {
-        title: "Cerebrosis",
-        artists: "Andrew Burnah",
-        filePath: "music/Cerebrosis.mp3"
+        title: 'Waltz no. 2',
+        artists:'Andrew Burnah',
+        filePath:'compositions/Waltz no. 2.pdf',
     },
     {
-        title: "Alarm Bells",
-        artists: "Andrew Burnah",
-        filePath: "music/Alarm Bells.mp3"
+        title: 'Waltzette no. 6',
+        artists:'Andrew Burnah',
+        filePath:'compositions/Waltzette no. 6.pdf',
     },
     {
-        title: "Machine Revolution",
-        artists: "Andrew Burnah and William Burnah",
-        filePath: "music/Machine Revolution.mp3"
+        title:'Waltzette no. 7',
+        artists:'Andrew Burnah',
+        filePath:'compositions/Waltzette no. 7.pdf',
     },
     {
-        title: "Something New",
-        artists: "Andrew Burnah",
-        filePath: "music/something-new.mp3"
+        title:'Waltzette no. 8',
+        artists:'Andrew Burnah',
+        filePath:'compositions/Waltzette no. 8.pdf',
     },
     {
-        title: "Postmortem Vengeance",
-        artists: "Andrew Burnah and William Burnah",
-        filePath: "music/Postmortem Vengeance.mp3"
-    },
-    {
-        title: "Mysteria Electrum",
-        artists: "Andrew Burnah",
-        filePath: "music/Mysteria Electrum.mp3"
+        title:'Waltzette',
+        artists:'Andrew Burnah',
+        filePath:'compositions/Waltzette.pdf',
     }
 ];
 
@@ -44,9 +39,7 @@ songs.forEach( (song) => {
     songDiv.innerHTML = `
         <h2>${song.title}</h2>
         <p>By: ${song.artists}</p>
-        <audio controls>
-            <source src="${song.filePath}" type="audio/mp3">
-        </audio>
+        <a href="${song.filePath}" download>Download PDF</a>
     `;
     songListContainer.appendChild(songDiv);
 })
