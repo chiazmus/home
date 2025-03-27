@@ -1,10 +1,10 @@
 :root {
-    --background-color: #121212;
-    --background-secondary: #24292e;
-    --primary: #666;
-    --accent-1: #bb86fc;
-    --accent-2: #02b3b9;
-    --accent-3: #343a40;
+    --background-color: #f0f0f0;
+    --background-secondary: #b9b9b9;
+    --primary: #000000;
+    --accent-1: #241a30;
+    --accent-2: #001414;
+    --accent-3: #a3a3a3;
 }
 
 /* General Reset */
@@ -14,6 +14,7 @@
     box-sizing: border-box;
     border-radius: 10px;
     border: none;
+    font-family: monospace;
 }
 
 body {
@@ -56,14 +57,14 @@ main {
     width: 90%;
     margin: 15px auto;
     transition: all 0.3s ease-in-out; /* This is the key line! */
-    height: 2rem; /*added to prevent collapsing*/
+    height: 3rem; /*added to prevent collapsing*/
 }
 
 .song:hover {
     color: var(--accent-2);
     justify-content: space-evenly;
     padding: 25px;
-    height: 10rem;
+    height: 12rem;
 }
 
 .song:hover p {
@@ -104,4 +105,20 @@ main {
 .song audio::-webkit-media-controls-mute-button {
     background-color: var(--accent-3);
     border-radius: 50%;
+}
+
+
+nav {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--primary);
+    font-size: 1.2rem;
+}
+
+nav a:hover {
+    color: rgb(28, 126, 143);
 }

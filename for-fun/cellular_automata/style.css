@@ -1,0 +1,86 @@
+:root {
+    --bg-color: #222;
+    --secondary-bg-color: #333;
+    --fg-color: #ddd;
+    --accent-color: #099;
+    --cell-size: 16px;
+}
+
+* {
+    border-radius: 10px;
+    border: none;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: black;
+    min-height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-bg-color);
+    color: var(--fg-color);
+    border-radius: 0;
+}
+
+header h1 {
+    background-color: var(--secondary-bg-color);
+}
+
+main {
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    margin: 3rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 5rem;
+}
+
+main h2 {
+    text-align: center;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+main button {
+    padding: 1rem;
+    background-color: var(--secondary-bg-color);
+    margin: 1rem;
+}
+
+main button:hover {
+    background-color: #555;
+}
+
+main canvas {
+    background-color: black;
+    margin: 1rem;
+    border-radius: 0;
+}
+
+footer {
+    border-radius: 0;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--secondary-bg-color);
+    color: var(--fg-color);    
+    height: 4rem;
+    justify-self: flex-end;
+}
+
+footer p {
+    background-color: var(--secondary-bg-color);
+}
