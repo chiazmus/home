@@ -11,12 +11,14 @@
     border: none;
     background-color: var(--bg-color);
     color: var(--fg-color);
+    font-family: monospace;
 }
 
 body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
     background-color: black;
     min-height: 100vh;
 }
@@ -28,6 +30,7 @@ header {
     background-color: var(--secondary-bg-color);
     color: var(--fg-color);
     border-radius: 0;
+    width: 100%;
 }
 
 header h1 {
@@ -41,10 +44,29 @@ main {
     display: flex;
     flex-direction: column;
     margin-bottom: 5rem;
+    width: fit-content;
+    padding: 3rem;
 }
 
 main h2 {
     text-align: center;
+}
+
+input {
+    background-color: black;
+    height: 2rem;
+}
+
+#ruleIn{
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#ruleIn button {
+    padding: 1rem;
+    margin: 0;
+    width: fit-content;
 }
 
 .buttons {
@@ -56,17 +78,22 @@ main button {
     padding: 1rem;
     background-color: var(--secondary-bg-color);
     margin: 1rem;
+    width: 100%;
 }
 
 main button:hover {
     background-color: #555;
 }
 
-main canvas {
-    background-color: black;
-    margin: 1rem;
+canvas {
+    width: auto; /* or a fixed width if you prefer */
+    height: auto; /* or a fixed height if you prefer */
+    border: 1px solid black; /* Optional: Add a border to see the canvas boundaries */
+    image-rendering: pixelated; /* Keep this for the pixelated look */
+    display: block; /* Prevents extra space below the canvas */
+    margin: 0 auto; /* Centers the canvas horizontally */
     border-radius: 0;
-}
+  }
 
 footer {
     border-radius: 0;
