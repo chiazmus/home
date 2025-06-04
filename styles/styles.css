@@ -13,6 +13,16 @@
     font-family: "Kode Mono", serif;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex-grow: 1;
+}
+
 header {
     display: flex;
     flex-direction: column;
@@ -24,6 +34,17 @@ header {
     width: 100%;
     flex-direction: row;
     justify-content: space-around;
+}
+
+.link-container a {
+    text-decoration: none;
+    padding: 4px;
+    border: 1px solid var(--primary-color);
+}
+
+.link-container a:hover {
+    color: var(--accent-1);
+    border: 1px solid var(--accent-1);
 }
 
 .console {
@@ -42,11 +63,25 @@ header {
     flex-direction: row;
     justify-content: flex-start;
     width: 95%;
+    margin: 0;
+    padding: 0;
 }
 
-input {
+.inputline p {
+    margin: 0;
+    padding: 0;
+}
+
+#consoleOutput {
+    margin: 0;
+    padding: 1rem 0 0 0;
+}
+
+#command {
     width: 100%;
     font-size: medium;
+    margin: 0;
+    padding: 0;
     border: none; 
     outline: none; 
     resize: none; 

@@ -12,6 +12,8 @@ const ruleDiv = document.getElementById('ruleIn');
 let intr = null;
 let bornRule = [3];
 let liveRule = [3,2];
+let color1 = 'lightgreen';
+let color2 = 'blue';
 let ant = {
     x: 25,
     y: 25,
@@ -57,17 +59,20 @@ function changeSimulation() {
         bornRule = [3];
         liveRule = [2,3];
         ruleDiv.style.display = "flex";
+        color1 = 'lightgreen'
 
     } else if (simulationTypes[mySim] == "Brians Brain") {
         bornRule = [2];
         liveRule = [];
         ruleDiv.style.display = "flex";
+        color1 = 'lightblue'
 
     } else {
         ant.x = 25;
         ant.y = 25;
         ant.dir = 0;
         ruleDiv.style.display = "none";
+        color1 = 'pink'
 
     }
 
@@ -82,7 +87,7 @@ function drawGrid() {
     for (let y = 0; y < gridHeight; y++) {
         for (let x = 0; x < gridWidth; x++) {
             const cellState = grid[y][x];
-            ctx.fillStyle = cellState === 1 ? 'lightgreen' : cellState === 2 ? 'darkgreen' : 'black'; // Alive: white, Dead: black
+            ctx.fillStyle = cellState === 1 ? color1 : cellState === 2 ? color2 : 'black'; // Alive: green, Dead: black
             ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
         }
     }
