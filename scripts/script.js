@@ -10,6 +10,13 @@ function handleEnter(event) {
     }
 }
 
+function write(stringToWrite){
+    let inp = commandInput.value.trim();
+    if(inp !== ""){
+        output.innerHTML += `<br>${inp}<br>${stringToWrite}`;
+    }
+}
+
 function runTerminal() {
     let inp = commandInput.value.trim();
     if (inp === "projects") {
@@ -17,7 +24,13 @@ function runTerminal() {
     } else if (inp === "interests") {
         window.location.href = "interests.html";
     } else if (inp === "help") {
-        output.innerHTML += "<br>help<br>Available commands: projects, interests, help";
+        output.innerHTML += "<br>help<br>Available commands: projects, interests, help, clear, date, time";
+    } else if (inp === 'clear') {
+        output.innerHTML = "Ready";
+    } else if (inp === 'date') {
+        write(new Date().toLocaleDateString());
+    } else if (inp === 'time') {
+        write(new Date().toLocaleTimeString());
     } else {
         let result = doCommand(inp);
         output.innerHTML += "<br>" + inp + "<br>" + result;
